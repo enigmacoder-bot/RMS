@@ -1,0 +1,167 @@
+bootstrap
+material
+
+navbar,
+stepper form
+star rating 
+
+home
+product-detail
+create-product
+profile
+login
+
+user to product
+user to review(like)
+user(admin) to category
+
+post-->
+postId
+userId
+image[]
+product name
+category
+sub- categories[]
+description
+tag[]
+date
+
+category -->
+(allow a marker to track the dynamic content)
+(allow to show dropdown)
+cid
+categoryName
+description
+labels
+sub-labels
+dynamic sections
+tags
+date
+
+user 
+category
+products
+reviews
+
+user = {
+	userid:001,
+	username:"",
+	email:"",
+	password:"",
+	createdOn:date,
+	profileIcon:"",
+	isGoogleLogged:true
+}
+
+post = {
+	userid:001,
+	category:"Product"
+	productid:0011,
+	postName:"Mosquito Bat",
+	AdditionalName:"(Brand Name)"
+	description:"A bad product",
+	subcategory:[],
+	tags:[]
+	images:[],
+	date:19/01/2023
+	ratings:5
+}
+
+reviews ={
+	userid:001,
+	productid:0011
+	reviewId:0012R
+	liked:false
+	comment:"This is a bad product"
+}
+
+category ={
+	cid:90011,
+	label:Product,
+	sublabel:[]
+}
+
+
+Design frontend home page and details screen with review message and ratings.
+carasoul.
+On load of the page bring review images and description of the post.
+
+on category select one api for fetching name, subtitle, description and rating.
+retirve 30.
+keep pagination api.
+67,81,83,89,87,91,85,73,71,69,61,63,65,76.
+
+ 
+phase -
+postreaction ={
+	userid : "
+	producttId:""
+	postreactionId:
+	liked:false,
+	disliked:true
+	createdOn
+}
+
+charts
+
+-- User table
+CREATE TABLE "user" (
+    userid VARCHAR(255) PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    createdOn VARCHAR(255),
+    profileIcon VARCHAR(255)
+);
+
+-- Product table
+CREATE TABLE "product" (
+    productid VARCHAR(255) PRIMARY KEY,
+    userid VARCHAR(255),
+    category VARCHAR(255),
+    productName VARCHAR(255) NOT NULL,
+    AdditionalName VARCHAR(255),
+    description VARCHAR(255),
+    subcategory VARCHAR(255),
+    tags VARCHAR(255),
+    date VARCHAR(255),
+    ratings DECIMAL(3,2),
+    FOREIGN KEY (userid) REFERENCES "user"(userid)
+);
+
+-- ProductImage table
+CREATE TABLE "productImage" (
+    productImage VARCHAR(255) PRIMARY KEY,
+    productid VARCHAR(255),
+    image BLOB,
+    createdOn VARCHAR(255),
+    FOREIGN KEY (productid) REFERENCES "product"(productid)
+);
+
+-- Reviews table
+CREATE TABLE "reviews" (
+    reviewId VARCHAR(255) PRIMARY KEY,
+    userid VARCHAR(255),
+    productid VARCHAR(255),
+    liked BOOLEAN,
+    comment TEXT,
+    FOREIGN KEY (userid) REFERENCES "user"(userid),
+    FOREIGN KEY (productid) REFERENCES "product"(productid)
+);
+
+-- Category table
+CREATE TABLE "category" (
+    cid INT PRIMARY KEY,
+    label VARCHAR(255),
+    sublabel TEXT
+);
+
+tomorrow 
+
+connection client -> server
+search working
+pagination
+ui corrections
+
+
+
