@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~bs-stepper/dist/css/bs-stepper.min.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+.list-image{
+    width: 100px;
+    height: 100px;
+}
+.image-carasoul{
+    width: 100px;
+    height: 100px;
+}
+.button-image {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+.home-card-img{
+        width: 279px !important;
+        height: 240px !important;
+}
+.star-rating{
+    span{
+        color: rgb(235, 203, 19);
+        font-size: 1rem;
+    }
+}
+.star-rating-md{
+    span{
+        color: rgb(235, 203, 19);
+        font-size: 1.5rem;
+    }
+}

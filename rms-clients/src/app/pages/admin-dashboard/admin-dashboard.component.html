@@ -1,0 +1,59 @@
+<div class="container">
+      
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+    <mat-tab label="Users">
+        <div class="users container">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>S.no</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>IsGoogleLoggedIn</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.IsGoogleLoggedIn}}</td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-warning">Edit</button>
+                                <button class="btn btn-danger">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-tab>
+    <mat-tab label="Posts">
+        <div class="container">
+            <ul class="list-group">
+                <div class="list-group-item mt-3" *ngFor="let post of posts;let i=index">
+                    <div class="row">
+                        <div class="col">
+                            <img class="list-image" src="post.images[0].preview" alt="">
+                        </div>
+                        <div class="col">
+                            <h4>{{post.productName}}</h4>
+                            <span>{{post.productDescription}}</span>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column gap-3">
+                                <button class="btn btn-warning">Edit</button><button class="btn btn-danger">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </ul>
+        </div>
+    </mat-tab>
+    <mat-tab label="Category">Content 3</mat-tab>
+  </mat-tab-group>
+
+</div>

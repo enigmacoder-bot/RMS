@@ -1,0 +1,29 @@
+<div class="loader"></div>
+<section class="container">
+    <div class="row">
+        <h1>Products :</h1>
+    </div>
+    <div class="container d-flex justify-content-center position-sticky">
+        <input class="form-control" type="text" placeholder="Search"/>
+    </div>
+    
+    <div class="container mt-3">
+        <div class="row">
+          <div class="col-md-3 mb-3" *ngFor="let item of data;let i=index" (click)="onSelectProduct(item.id)">
+            <div class="card h-100 shadow rounded p-2">
+              <img [src]="item.images[0]?.preview" class="card-img-top" alt="{{ item.productName }}">
+              
+              <div class="card-body">
+                <h5 class="card-title">{{ item.productName }}</h5>
+                <p class="card-text">{{ item.productDescription }}</p>
+              </div>
+              <div class="card-footer d-flex">
+                <ngb-rating class="star-rating" [(rate)]="item.ratings" [max]="5" [readonly]="true"></ngb-rating>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</section>
