@@ -31,23 +31,11 @@ const Post = {
 
           // If images exist, insert them into the 'postImage' table
           if (images && images.length > 0) {
-            for (const image of images) {
+            const imageArray = images.split(',')
+            for (const image of imageArray) {
               const postimageid = uuid.v4(); // Generating unique id for each image
 
-              let base64Image = await convertFileToBase64(image); // Ensure this returns a valid Base64 string
-              
-              if (!base64Image) {
-                return callback(new Error('Base64 conversion failed'));
-              }
-
-              // Remove the Base64 prefix if present (e.g., "data:image/jpeg;base64,")
-              const base64Data = base64Image.split(',')[1];
-              
-              if (!base64Data) {
-                return callback(new Error('Invalid Base64 format'));
-              }
-
-              const imageBuffer = Buffer.from(base64Data, 'base64'); // Convert to Buffer
+              const imageBuffer = Buffer.from(image, 'base64'); // Convert to Buffer
 
               db.run(
                 `INSERT INTO postImage (postimageid, postid, image, createdOn) VALUES (?, ?, ?, ?)`,
@@ -56,10 +44,8 @@ const Post = {
                   if (err) return callback(err);
                 }
               );
-            }
+             }
           }
-
-          // Return the postid after insertion
           callback(null, { postid });
         }
       );

@@ -41,40 +41,41 @@ export class CreateProductComponent {
     this.stepper.previous();
   }
 
-  onSubmit() {
-
-    // if(this.form.invalid)
-    // {
-    //   alert("Enter all the values")
-    //   return false
-    // }
+  async onSubmit() {
+    const formData = new FormData();
+  
     const imagesArray = this.form.get("images") as FormArray;
     const imageBlobs = imagesArray.controls.map(control => {
       const imageFile = control.get('image')?.value;
-      return imageFile; // only pass the image blob (file), not preview
+      return imageFile;
+    });
+
+    const base64Images = await Promise.all(imageBlobs.map(file => this.fileToBase64(file)));
+
+  
+    const formObj = this.form.value as any;
+    formObj["id"] = crypto.randomUUID();
+    formObj["userid"] = this.userid;
+    formObj["images"] = base64Images;
+    formObj["tags"] = this.convertArrayToString(this.form.get("tags") as FormArray);
+    formObj["subcategory"] = this.convertArrayToString(this.form.get("subCategories") as FormArray);
+    
+    Object.keys(formObj).forEach(key => {
+      formData.append(key, JSON.stringify(formObj[key]));
+    });  
+  
+    this.postService.createOGPost(formData).subscribe((val) => {
+      Swal.fire({
+        text: 'Success!',
+        icon: 'success'
+      });
+      setTimeout(() => {
+        this.router.navigateByUrl('/');
+      });
     });
   
-      const formObj = this.form.value as any
-      formObj["id"] = crypto.randomUUID()
-      delete formObj.image
-      delete formObj.tag
-      delete formObj.subCategory
-      formObj["userid"] = this.userid
-      formObj["images"] = imageBlobs;
-      formObj["tags"] = this.convertArrayToString(this.form.get("tags") as FormArray)
-      formObj["subcategory"] = this.convertArrayToString(this.form.get("subCategories") as FormArray)
-      console.log(formObj) 
-      this.postService.createOGPost(formObj).subscribe((val)=>{
-        Swal.fire({
-          text:'Success !',
-          icon:'success'})
-          setTimeout(()=>{7
-            this.router.navigateByUrl('/')
-          })
-      })
-      return true
+    return true;
   }
-
 
   addSubCategory()
   {

@@ -27,7 +27,7 @@ db.serialize(() => {
       postid TEXT PRIMARY KEY,
       userid TEXT,
       category TEXT,
-      postName TEXT NOT NULL,
+      postName TEXT,
       AdditionalName TEXT,
       description TEXT,
       subcategory TEXT,
@@ -40,7 +40,7 @@ db.serialize(() => {
 
   db.run(`
     CREATE TABLE IF NOT EXISTS postImage (
-      postimageid TEXT PRIMARY KEY AUTOINCREMENT,
+      postimageid TEXT PRIMARY KEY ,
       postid TEXT,
       image BLOB,
       createdOn TEXT,
