@@ -18,7 +18,7 @@ const userController = {
       User.comparePassword(password, user.password, (err, isMatch) => {
         if (err || !isMatch) return res.status(401).json({ error: 'Incorrect password' });
 
-        const token = jwt.sign({ userid: user.userid, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ userid: user.userid, email: user.email,username:user.username,isAdmin:user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.json({ token });
       });
     });

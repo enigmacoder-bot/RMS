@@ -16,13 +16,22 @@ export class AuthServices{
     roleObj = this.role.asObservable();
 
 
-    constructor() { 
-        const Isuser =  sessionStorage.getItem("user")
-        this.auth.next(!!Isuser)
-        if(Isuser !== null)
-        {
-          this.setloggedUser(JSON.parse(Isuser))
-        }
+    constructor() {
+      const Isuser = sessionStorage.getItem("user");
+      if(Isuser)
+      {  
+        const userData = this.decodeJWT(Isuser);     
+        this.authDetails.next(userData)
+      }
+     console.log(this.isLoggedIn())
+     console.log(this.IsUserAdmin())
+     }
+
+
+
+      decodeJWT(token: string): any {
+        const payloadPart = token.split('.')[1];
+        return JSON.parse(atob(payloadPart));
       }
 
       setloggedUser(data:any){
@@ -30,13 +39,15 @@ export class AuthServices{
           sessionStorage.removeItem("user")
           sessionStorage.setItem("user",JSON.stringify(data))
         }
-        sessionStorage.setItem("user",JSON.stringify(data))
+        sessionStorage.setItem("user",JSON.stringify(data['token']))
+        data = this.decodeJWT(JSON.stringify(data))
         this.authDetails.next(data)
       }
 
       login(data:boolean){
         this.auth.next(data)
       }
+      
       logout(data:boolean){
         this.auth.next(data)
         sessionStorage.removeItem("user")
@@ -46,19 +57,21 @@ export class AuthServices{
       getloggedUser(){
         return this.authDetails.value
       }
+
+
       getUserRole(){
-        return this.authDetails.value.role
+        return this.authDetails.value.isAdmin
       }
 
 
       isLoggedIn()
       {
-        return !!this.authDetails.value.role
+        return this.authDetails.value.userid
       }
 
       IsUserAdmin()
       {
-        return this.authDetails.value.role ==="ADMIN"
+        return this.authDetails.value.isAdmin === 1;
       }
     
 }
