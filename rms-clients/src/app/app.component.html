@@ -38,33 +38,13 @@
                         > Create Post </a>
                         
                     </li>
-    
-                    <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end">
-                        <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown3" role="button"> Category </a>
-                        <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
-                            <ng-container *ngFor="let category of categories">
-                                <a ngbDropdownItem href="" (click)="$event.preventDefault()" *ngIf="!category.subLabel">
-                                    {{category.label}}
-                                </a>
-                                <div ngbDropdown *ngIf="category.subLabel" ngbDropdownDisplay="dynamic" class="dropdown-submenu">
-                                    <a class="dropdown-item" tabindex="0" ngbDropdownToggle>{{category.label}}</a>
-                                    <div ngbDropdownMenu class="dropdown-menu">
-                                        <a ngbDropdownItem href="" (click)="$event.preventDefault()" *ngFor="let subCategory of category.subLabel">
-                                            {{subCategory}}
-                                        </a>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </div>
-                    </li>   
-                    
 
                     <li class="nav-item"
                     *ngIf="isLoggedIn"
                     >
                         <a class="nav-link" tabindex="0"  id="navbarDropdown1" role="button"
                         routerLink="/profile"
-                        > Profile </a>
+                        > {{username}} </a>
                     </li>
 
                     <li class="nav-item"

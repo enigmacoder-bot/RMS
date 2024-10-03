@@ -15,6 +15,7 @@ export class AppComponent {
   collapsed = true;
   isAdmin:boolean=false
   isLoggedIn:boolean =false
+  username:string=""
 
   categories:any[]=[]
 
@@ -23,6 +24,9 @@ export class AppComponent {
     this.categories = category
     this.isAdmin = this.authServices.IsUserAdmin()
     this.isLoggedIn = this.authServices.isLoggedIn()
+    this.authServices.AuthObDetails.subscribe((data)=>{
+      this.username = data.username
+    })
   }
   logOut()
   {

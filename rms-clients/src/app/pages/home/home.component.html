@@ -1,15 +1,32 @@
 <div class="loader"></div>
 <section class="container">
-    <div class="row">
-        <h1>Products :</h1>
-    </div>
+
+  <div class="row mt-3">
     <div class="container d-flex justify-content-center position-sticky">
-        <input class="form-control" type="text" placeholder="Search"/>
+      <input class="form-control" type="text" placeholder="Search"/>
+  </div>
+  </div>
+
+  <!-- render the categories -->
+
+  <div class="row mt-4">
+    <div class="col-md-3 mb-3" *ngFor="let item of categories;let i=index" (click)="onSelectProduct(item.id)">
+      <div class="card h-100 shadow rounded p-2">  
+        <div class="card-body">
+          <h1 class="card-title">{{ item.label }}</h1>
+        </div>
+      </div>
     </div>
+  </div>
+
+
+  <!-- render products -->
+
+
     
     <div class="container mt-3">
         <div class="row">
-          <div class="col-md-3 mb-3" *ngFor="let item of data;let i=index" (click)="onSelectProduct(item.id)">
+          <div class="col-md-3 mb-3" *ngFor="let item of posts;let i=index" (click)="onSelectProduct(item.id)">
             <div class="card h-100 shadow rounded p-2">
               <img [src]="item.images[0]?.preview" class="card-img-top" alt="{{ item.productName }}">
               

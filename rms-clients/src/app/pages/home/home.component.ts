@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { products } from 'src/data/product'
 import {Router} from '@angular/router'
 import { PostServices } from 'src/app/services/posts.services';
+import { CategoryServices } from 'src/app/services/category.services';
 
 @Component({
   selector: 'app-home',
@@ -11,17 +12,23 @@ import { PostServices } from 'src/app/services/posts.services';
 })
 export class HomeComponent {
 
-  constructor(private router:Router,private postService:PostServices){}
+  constructor(private router:Router,private postService:PostServices,private categoryService:CategoryServices){}
 
-  data:any[]=[]
+  posts:any[]=[]
+  categories:any[] =[]
 
   ngOnInit()
   {
-    this.postService.getAllPost().subscribe((val)=>{
-      this.data = val
+    this.getAllCategories()
+  }
+
+  getAllCategories(){
+    this.categoryService.getAllCategory().subscribe((data)=>{
+      this.categories = data
     })
   }
 
+  
   onSelectProduct(index:number)
   {
     this.router.navigate(['product-detail',index])
