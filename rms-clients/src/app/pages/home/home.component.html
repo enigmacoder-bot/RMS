@@ -10,7 +10,7 @@
   <!-- render the categories -->
 
   <div class="row mt-4">
-    <div class="col-md-3 mb-3" *ngFor="let item of categories;let i=index" (click)="onSelectProduct(item.id)">
+    <div class="col-md-3 mb-3" *ngFor="let item of categories;let i=index" (click)="onCategorySelect(item.label)">
       <div class="card h-100 shadow rounded p-2">  
         <div class="card-body">
           <h1 class="card-title">{{ item.label }}</h1>

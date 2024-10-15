@@ -30,7 +30,7 @@ const postController = {
   },
 
   findByCategory:(req,res) => {
-    Post.findByCategory(req.params.category,(err) =>{
+    Post.findByCategory(req.body.category,(err) =>{
       if(err) return res.status(400).json({error:err.message});
       res.json({message:'Retrived Items Worked'})
     })

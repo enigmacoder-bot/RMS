@@ -39,5 +39,9 @@ export class PostServices {
         return this.http.delete(`${this.apiUrl}/${id}`)
     }
 
+    findPostByCategory(category:any):Observable<any>{
+        return this.http.post(`${this.apiUrl_new}/category`,category)
+    }
+
 
 }

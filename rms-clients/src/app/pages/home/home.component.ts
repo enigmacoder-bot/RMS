@@ -34,4 +34,11 @@ export class HomeComponent {
     this.router.navigate(['product-detail',index])
   }
 
+  onCategorySelect(category:string)
+  {
+    this.postService.findPostByCategory({category:category}).subscribe((data)=>{
+      this.posts = data
+    })
+  }
+
 }

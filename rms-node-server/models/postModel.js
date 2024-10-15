@@ -105,11 +105,11 @@ const Post = {
   },
 
   findByCategory: (category, callback) => {
-    db.all(`SELECT * FROM post WHERE category = ?`, [category], (err, postRows) => {
+    db.all(`SELECT * FROM post WHERE category LIKE ?`, [`%${category}%`], (err, postRows) => {
       if (err) return callback(err);
 
       if (!postRows || postRows.length === 0) return callback(null, []); // No posts found
-
+      console.log(postRows)
       const postsWithImages = [];
       const getImagesForPost = (post, done) => {
         db.all(`SELECT image FROM postImage WHERE postid = ?`, [post.postid], (err, imageRows) => {
