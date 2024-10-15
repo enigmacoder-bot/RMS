@@ -9,7 +9,7 @@
 
   <!-- render the categories -->
 
-  <div class="row mt-4">
+  <div class="row mt-4" *ngIf="posts.length === 0">
     <div class="col-md-3 mb-3" *ngFor="let item of categories;let i=index" (click)="onCategorySelect(item.label)">
       <div class="card h-100 shadow rounded p-2">  
         <div class="card-body">
@@ -22,17 +22,19 @@
 
   <!-- render products -->
 
+  <button class="btn btn-secondary"  *ngIf="posts.length > 0" (click)="clearPosts()">Back</button>
+
 
     
-    <div class="container mt-3">
+    <div class="container mt-3"  *ngIf="posts.length > 0">
         <div class="row">
-          <div class="col-md-3 mb-3" *ngFor="let item of posts;let i=index" (click)="onSelectProduct(item.id)">
+          <div class="col-md-3 mb-3" *ngFor="let item of posts;let i=index" (click)="onSelectProduct(item.postid)">
             <div class="card h-100 shadow rounded p-2">
-              <img [src]="item.images[0]?.preview" class="card-img-top" alt="{{ item.productName }}">
+              <img [src]=getBase64Image(item.images[0].data) class="card-img-top" alt="{{ item.postName }}">
               
               <div class="card-body">
-                <h5 class="card-title">{{ item.productName }}</h5>
-                <p class="card-text">{{ item.productDescription }}</p>
+                <h5 class="card-title">{{ item.postName }}</h5>
+                <p class="card-text">{{ item.description }}</p>
               </div>
               <div class="card-footer d-flex">
                 <ngb-rating class="star-rating" [(rate)]="item.ratings" [max]="5" [readonly]="true"></ngb-rating>

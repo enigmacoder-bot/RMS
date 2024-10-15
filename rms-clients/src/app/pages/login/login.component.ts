@@ -2,6 +2,7 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServices } from 'src/app/services/user-services';
 import { AuthServices } from 'src/app/services/auth.services';
+import { SharedServices } from 'src/app/services/shared-services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +12,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements AfterViewInit {
 
-  constructor(private authService:AuthServices,private userService:UserServices,private router:Router){}
+  constructor(private authService:AuthServices,private userService:UserServices,private router:Router,
+  private sharedSerice:SharedServices){}
 
   @ViewChild('loginform') loginform: NgForm | undefined;
 
@@ -27,7 +29,7 @@ export class LoginComponent implements AfterViewInit {
   loginUser()
   {
     const loginObj = this.loginform?.value
-    this.userService.loginUser(loginObj).subscribe((data)=>{
+    this.userService.loginUser2(loginObj).subscribe((data)=>{
       this.authService.setloggedUser(data)
       this.router.navigateByUrl('/')
       setTimeout(()=>{
@@ -35,6 +37,20 @@ export class LoginComponent implements AfterViewInit {
       },1000)
     })
   }
+
+  registerUser()
+  {
+    const formObj = this.loginform?.value;
+    formObj['username'] = this.sharedSerice.randomizeUsername(formObj.email)
+    this.userService.registerUser(formObj).subscribe((data)=>{
+      this.authService.setloggedUser(data)
+      this.router.navigateByUrl('/')
+      setTimeout(()=>{
+        location.reload()
+      },1000)
+    })
+  }
+
 
   toggleMethods()
   {
