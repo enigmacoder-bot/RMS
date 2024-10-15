@@ -63,6 +63,10 @@ export class AuthServices{
         return this.authDetails.value.isAdmin
       }
 
+      getLoggedUserId()
+      {
+        return this.authDetails.value.userid
+      }
 
       isLoggedIn()
       {

@@ -46,6 +46,7 @@ export class ProductDetalsComponent {
   ratings:number=0
   comments:string=""
   isLoggedIn:boolean = false
+  userid:string=""
 
   
 
@@ -57,8 +58,8 @@ export class ProductDetalsComponent {
     this.id = this.router.snapshot.paramMap.get('id')
     this.getProductByIndex()
     this.getReviews()
-
     this.isLoggedIn = this.authServices.isLoggedIn()
+    this.userid = this.authServices.getLoggedUserId()
 
   }
 
@@ -88,7 +89,7 @@ export class ProductDetalsComponent {
     else{
       const reviewForm = {} as any
       reviewForm["id"]=crypto.randomUUID()
-      reviewForm["userid"] =""
+      reviewForm["userid"] = this.userid
       reviewForm["productId"] = this.currentProduct.id
       reviewForm["ratings"] = this.ratings
       reviewForm["comments"]= this.comments

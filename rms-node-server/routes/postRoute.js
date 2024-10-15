@@ -6,5 +6,6 @@ router.post('/', postController.createPost);
 router.get('/:postid', postController.getPost);
 router.put('/:postid', postController.updatePost);
 router.delete('/:postid', postController.deletePost);
+router.post('/category',postController.findByCategory)
 
 module.exports = router;

@@ -103,6 +103,42 @@ const Post = {
       callback(null);
     });
   },
+
+  findByCategory: (category, callback) => {
+    db.all(`SELECT * FROM post WHERE category = ?`, [category], (err, postRows) => {
+      if (err) return callback(err);
+
+      if (!postRows || postRows.length === 0) return callback(null, []); // No posts found
+
+      const postsWithImages = [];
+      const getImagesForPost = (post, done) => {
+        db.all(`SELECT image FROM postImage WHERE postid = ?`, [post.postid], (err, imageRows) => {
+          if (err) return done(err);
+
+          const images = imageRows.map(row => row.image);
+          postsWithImages.push({ ...post, images });
+          done(null);
+        });
+      };
+
+      // Fetch images for each post asynchronously
+      const tasks = postRows.map(post => {
+        return new Promise((resolve, reject) => {
+          getImagesForPost(post, (err) => {
+            if (err) return reject(err);
+            resolve();
+          });
+        });
+      });
+
+      // Wait for all posts to have their images retrieved
+      Promise.all(tasks)
+        .then(() => callback(null, postsWithImages))
+        .catch(callback);
+    });
+  },
+
+
 };
 
 module.exports = Post;

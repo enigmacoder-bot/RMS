@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { PostServices } from 'src/app/services/posts.services';
 import { FormControl, FormGroup,FormArray,Validators, FormBuilder } from '@angular/forms';
+import { AuthServices } from 'src/app/services/auth.services';
 
 @Component({
   selector: 'app-create-product',
@@ -13,11 +14,10 @@ import { FormControl, FormGroup,FormArray,Validators, FormBuilder } from '@angul
   ]
 })
 export class CreateProductComponent {
-  userid :string="9842948234823nkjwnrf"
   private stepper!: Stepper;
   newSubCategory :string=''
 
-  constructor(private formBuilder:FormBuilder,private postService:PostServices,private router:Router){}
+  constructor(private formBuilder:FormBuilder,private postService:PostServices,private router:Router,private authServices:AuthServices){}
 
   form = new FormGroup({
     postName: new FormControl("", Validators.required),
@@ -32,6 +32,7 @@ export class CreateProductComponent {
     image:new FormControl(""),
     images: new FormArray([])
   });
+  userid:string =""
   
 
   next() {
@@ -162,6 +163,7 @@ export class CreateProductComponent {
     } else {
       console.error('Stepper element not found');
     }
+    this.userid = this.authServices.getLoggedUserId()
   }
 
   convertArrayToString(formArray: FormArray): string {

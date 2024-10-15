@@ -28,6 +28,14 @@ const postController = {
       res.json({ message: 'Post deleted successfully' });
     });
   },
+
+  findByCategory:(req,res) => {
+    Post.findByCategory(req.params.category,(err) =>{
+      if(err) return res.status(400).json({error:err.message});
+      res.json({message:'Retrived Items Worked'})
+    })
+  }
+
 };
 
 module.exports = postController;
